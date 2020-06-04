@@ -8,10 +8,15 @@ import logic.util
 
 global bot
 global token
+
 token = os.environ['telegram_token']
 vrm_user = os.environ['vrm_user']
 vrm_pass = os.environ['vrm_pass']
 users = os.environ["users"].split(";")
+solar_id = os.environ['solar_id']
+bmv_id = os.environ['bmv_id']
+site_id = os.environ['site_id']
+
 bot = telegram.Bot(token=token)
 
 app = Flask(__name__)
@@ -33,14 +38,14 @@ def respond():
             val_str = collect_fields(
                 api.battery_summary_widget,
                 50134,
-                288,
+                bmv_id,
                 ["47", "49", "50", "51", "115"])
             bot.sendMessage(chat_id, val_str)
         elif chat_message.lower() == "solar":
             val_str = collect_fields(
                 api.solar_charger_summary_widget,
                 50134,
-                289,
+                solar_id,
                 ["85", "94", "96", "107"])
             bot.sendMessage(chat_id, val_str)
         else:
