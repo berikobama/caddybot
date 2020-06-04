@@ -37,19 +37,19 @@ def respond():
         elif chat_message.lower() == "status":
             val_str = collect_fields(
                 api.battery_summary_widget,
-                50134,
+                site_id,
                 bmv_id,
                 ["47", "49", "50", "51", "115"])
             bot.sendMessage(chat_id, val_str)
         elif chat_message.lower() == "solar":
             val_str = collect_fields(
                 api.solar_charger_summary_widget,
-                50134,
+                site_id,
                 solar_id,
                 ["85", "94", "96", "107"])
             bot.sendMessage(chat_id, val_str)
         else:
-            bot.sendMessage(chat_id, "Nein, Dill..")
+            bot.sendMessage(chat_id, "unrecognized command")
     else:
         print(update)
 
