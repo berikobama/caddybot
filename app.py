@@ -4,7 +4,7 @@ import os
 from logic.vrm import VRM_API
 from flask import Flask, request
 import telegram
-import logic.util
+from logic.util import *
 
 global bot
 global token
@@ -31,7 +31,7 @@ def respond():
     chat_id = chat_obj["id"]
     chat_message = update["message"]["text"]
 
-    if chat_obj["username"] in users:
+    if chat_obj["username"] in users:1
         if chat_message == "?":
             bot.sendMessage(chat_id, get_google_maps_url(api))
         elif chat_message.lower() == "status":
