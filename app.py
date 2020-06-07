@@ -40,7 +40,7 @@ def respond():
 
     if chat_obj["username"] in users:
         if chat_message in commands.keys():
-            commands[chat_message](api, bot, chat_id, solar_id, site_id)
+            commands[chat_message](api, bot, chat_id, solar_id, site_id, bmv_id)
         else:
             bot.sendMessage(chat_id, "unrecognized command")
     else:
