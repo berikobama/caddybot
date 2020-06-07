@@ -10,3 +10,26 @@ def get_google_maps_url(api):
     lat = loc.get("4").get("valueFormattedValueOnly")
     lon = loc.get("5").get("valueFormattedValueOnly")
     return "https://maps.google.com/?q={LAT},{LON}".format(LAT=str(lat), LON=str(lon))
+
+
+def handle_status(api, bot, chat_id):
+	val_str = collect_fields(
+        api.battery_summary_widget,
+        site_id,
+        bmv_id,
+        ["47", "49", "50", "51", "115"])
+	bot.sendMessage(chat_id, val_str)
+
+def handle_solar(api, bot, chat_id):
+	val_str = collect_fields(
+        api.solar_charger_summary_widget,
+        site_id,
+        solar_id,
+        ["85", "94", "96", "107"])
+	bot.sendMessage(chat_id, val_str)
+
+def handle_maps(api, bot, chat_id):
+	bot.sendMessage(chat_id, get_google_maps_url(api))
+
+def get_help(api, bot, chat_id):
+	bot.sendMessage(chat_id, "not implemented yet.")

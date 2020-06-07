@@ -29,25 +29,18 @@ def respond():
     
     chat_obj = update["message"]["chat"]
     chat_id = chat_obj["id"]
-    chat_message = update["message"]["text"]
+    chat_message = update["message"]["text"].lower()
+
+    commands = {
+        "solar": handle_solar,
+        "status": handle_status,
+        "help": get_help,
+        "?": handle_maps
+        }
 
     if chat_obj["username"] in users:
-        if chat_message == "?":
-            bot.sendMessage(chat_id, get_google_maps_url(api))
-        elif chat_message.lower() == "status":
-            val_str = collect_fields(
-                api.battery_summary_widget,
-                site_id,
-                bmv_id,
-                ["47", "49", "50", "51", "115"])
-            bot.sendMessage(chat_id, val_str)
-        elif chat_message.lower() == "solar":
-            val_str = collect_fields(
-                api.solar_charger_summary_widget,
-                site_id,
-                solar_id,
-                ["85", "94", "96", "107"])
-            bot.sendMessage(chat_id, val_str)
+        if chat_message in commands.keys():
+            commands[chat_message](api, bot, chat_id)
         else:
             bot.sendMessage(chat_id, "unrecognized command")
     else:
